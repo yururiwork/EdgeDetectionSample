@@ -11,11 +11,15 @@ img_lib.Image convertCameraImage(CameraImage cameraImage) {
   if (cameraImage.format.group == ImageFormatGroup.yuv420) {
     image = convertYUV420ToImage(cameraImage);
   } else if (cameraImage.format.group == ImageFormatGroup.bgra8888) {
-    image = convertBGRA8888ToImage(cameraImage);
+    image = convertBGRA8888ToImage(cameraImage, isIOS: Platform.isIOS);
   } else {
     throw Exception('Undefined image type.');
   }
-  return img_lib.copyRotate(image, angle: 90);
+  if (Platform.isAndroid) {
+    return img_lib.copyRotate(image, angle: 90);
+  } else {
+    return image;
+  }
 }
 
 ///
