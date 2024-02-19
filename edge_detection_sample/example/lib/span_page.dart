@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:edge_detection_sample/edge_detection_sample.dart';
 import 'package:edge_detection_sample_example/cropped_page.dart';
@@ -51,6 +53,9 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
       cameras[index],
       ResolutionPreset.veryHigh,
       enableAudio: false,
+      imageFormatGroup: Platform.isAndroid
+          ? ImageFormatGroup.yuv420
+          : ImageFormatGroup.bgra8888,
     );
 
     try {
